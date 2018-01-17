@@ -1,0 +1,13 @@
+[book]
+title = "Основы операционных систем с нуля"
+authors = ["Lain-dono <lain.dono@gmail.com>"]
+#description = "The example book covers examples."
+
+[output.html]
+theme = "Rust"
+curly-quotes = true
+additional-js = ["svg.min.js"]
+
+[build]
+build-dir = "book"
+
