@@ -1,0 +1,254 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Задание 0: Blinky - Основы операционных систем с нуля</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="./about.html"><strong>1.</strong> О курсе</a></li><li><a href="./assignments.html"><strong>2.</strong> Задания</a></li><li><ul class="section"><li><a href="./assignment_0.html" class="active"><strong>2.1.</strong> Задание 0: Blinky</a></li></ul></li><li><a href="./rust_0.html"><strong>3.</strong> Rust</a></li><li><ul class="section"><li><a href="./rust_1.html"><strong>3.1.</strong> Основы синтаксиса</a></li><li><a href="./rust_2.html"><strong>3.2.</strong> Пользовательские типы</a></li><li><a href="./rust_3.html"><strong>3.3.</strong> Pattern matching</a></li><li><a href="./rust_4.html"><strong>3.4.</strong> Управляющие конструкции</a></li><li><a href="./rust_5.html"><strong>3.5.</strong> Память и указатели</a></li><li><a href="./rust_6.html"><strong>3.6.</strong> Инструментарий</a></li><li><a href="./rust_7.html"><strong>3.7.</strong> Стандартная библиотека</a></li></ul></li><li><a href="./git.html"><strong>4.</strong> Введение в Git и Github</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars" title="Toggle sidebar"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush" title="Change theme"></i>
+                    </div>
+
+                    <h1 class="menu-title">Основы операционных систем с нуля</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <a class="header" href="./assignment_0.html#Задание-0-blinky" id="Задание-0-blinky"><h1>Задание 0: Blinky</h1></a>
+<a class="header" href="./assignment_0.html#Материалы" id="Материалы"><h2>Материалы</h2></a>
+<p><a href="./docs/BCM2835-ARM-Peripherals.pdf">BCM2835 ARM Peripherals Manual</a></p>
+<p><a href="https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard">How to Use a Breadboard</a></p>
+<p><a href="https://www.raspberrypi.org/documentation/usage/gpio-plus-and-raspi2/README.md">Raspberry Pi Foundation’s GPIO Usage</a></p>
+<a class="header" href="./assignment_0.html#Предисловие" id="Предисловие"><h2>Предисловие</h2></a>
+<p>Добро пожаловать в CS140e!
+Мы очень рады, что вы решили присоединиться к нам для этого инаугурационного воплощения.
+Надеемся, вам понравится этот класс, поскольку мы его разработали!
+И, конечно же, мы надеемся, что вы узнаете тонну.</p>
+<p>Мы надеемся сделать что-то по-другому в CS140e, чем в норме.
+В частности, мы хотим, чтобы вы написали большую часть кода, и мы хотим,
+чтобы ваш код исполнялся на реальном оборудовании, делая реальные вещи.
+Для вас будет очень мало строительных лесов, и весь ваш код будет нацелен и запускаться на встроенной платформе Raspberry Pi 3,
+основанной на четырехъядерных процессорах ARMv8 Cortex-A53.</p>
+<p>В CS140e вы будете программировать в Rust,
+«язык системного программирования, который работает невероятно быстро, предотвращает segfaults и гарантирует безопасность потоков».
+Вы можете думать о Rust как о преемнике C и C ++, но более полезно думать это новый язык с новыми концепциями.
+Не пытайтесь программировать в Rust, как если бы это C, C ++, Java или любой другой язык, к которому вы привыкли.
+Вместо этого рассмотрите это как возможность изучить новый способ написания программного обеспечения - новый ржавый способ.
+К концу срока мы думаем, вы согласитесь, что Rust поможет вам написать более правильное,
+более надежное программное обеспечение - ключевые свойства для операционных систем!</p>
+<p>Вы будете писать много кода в CS140e, хотя мы думаем,
+что большая часть вашего времени будет потрачена, думая о том, что должно произойти.
+Мы ожидаем, что для большинства заданий потребуется около 10-15 часов в неделю.
+Вы ни в коем случае не должны затягиваться в CS140e.
+Начните пораньше, задавайте вопросы и получайте удовольствие - вы узнаете гораздо больше,
+если вы дадите себе возможность подумать о трудных проблемах.</p>
+<p>Мы здесь, чтобы ответить на все вопросы. Пожалуйста, не стесняйтесь обращаться к нам. Удачи!</p>
+<a class="header" href="./assignment_0.html#Обзор" id="Обзор"><h2>Обзор</h2></a>
+<p>В этом задании вы настроите и испытаете среду разработки Raspberry Pi 3,
+ARM64 для вашего использования на протяжении всего курса.
+Вы установите необходимые инструменты и напишите свое первое приложение с белым металлом,
+светодиодная мигающая программа на двух языках: C и Rust.</p>
+<p>Это назначение разделено на 4 фазы.
+На первом этапе вы установите необходимое программное обеспечение для связи с вашим Pi с вашего компьютера.
+Вы также убедитесь, что ваш Pi работает так, как ожидалось, запустив предварительно скомпилированную программу.
+На втором этапе вы подключите вывод 16 GPIO на вашем малине Pi к светодиоду на макете
+и запустите вторую предварительно скомпилированную программу, чтобы обеспечить надежное соединение.
+На третьем этапе вы установите кросс-компилятор aarch64-none-elf,
+который позволит вам скомпилировать и связать программы для вашего Pi с вашей машины.
+Вы будете писать, компилировать и связывать программу C, которая включает и выключает вывод 16 GPIO,
+мигая светодиод, подключенный к вашему Pi.
+Наконец, в фазе 4 вы установите Rust и необходимую инструментальную цепочку для записи,
+компиляции и связывания одной и той же программы в Rust.</p>
+<a class="header" href="./assignment_0.html#0-Начало-работы" id="0-Начало-работы"><h2>0: Начало работы</h2></a>
+<p>Во-первых, убедитесь, что вы работаете над этим заданием с помощью совместимой машины.
+Для CS140e совместимость означает соотвествие следующим требованиям:</p>
+<ul>
+<li>В качестве ОС современная вариация Unix (не виртуалка): Linux, BSD или macOS</li>
+<li>64-битный вариант этой ОС</li>
+<li>Имеются порты USB-A (или USB-C с USB-A адаптером)</li>
+</ul>
+<p>И там установленно следующее програмное обеспечение:
+<code>git</code>, <code>wget</code>, <code>tar</code>, <code>screen</code> и <code>make</code>.</p>
+<p>Если вы используете Windows, мы предлагаем вам установить
+<a href="https://www.ubuntu.com/download/desktop">Ubuntu LTS</a>
+или
+<a href="https://getfedora.org/en/workstation/download/">Fedora</a>
+на дополнительный раздел.
+Возможно использовать <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Linux Subsystem for Windows</a>,
+но на данный момент мы
+не будем предоставлять поддержку или отвечать на вопросы об этой конфигурации.</p>
+<a class="header" href="./assignment_0.html#Получение-железа" id="Получение-железа"><h3>Получение “железа”</h3></a>
+<p>Убедитесь, что у вас в наличии:</p>
+<ul>
+<li>1 Raspberry Pi 3 model B</li>
+<li>1 1/2-sized breadboard</li>
+<li>1 microSD-карта на 4GB</li>
+<li>1 адаптер для microSD-карт</li>
+<li>1 CP2102 USB TTL adapter w/4 jumper cables</li>
+<li>10 многоцветных светодиодов</li>
+<li>4 резистора по 100 ом</li>
+<li>4 резистора по 1 килоом</li>
+<li>20 соеденительных проводов</li>
+</ul>
+<p><strong>Внимание</strong>:
+Электроника чувствительна к статическому электричеству, поэтому убедитесь,
+что вы заземляете себя, касаясь чего-то проводящего, прежде чем прикасаться к любой электронике.</p>
+<p>Подготовьте два проводка, один резистор (любой из вышеперечисленных) и один светодиод.
+Чуть позже нам пригодится и карта с адаптером.</p>
+<a class="header" href="./assignment_0.html#Получение-стартового-кода" id="Получение-стартового-кода"><h3>Получение стартового кода</h3></a>
+<p>Склонируйте нулевое задание из git-репозитория на вашу машину разработчика
+и затем извлеките необходимые файлы, запустив <code>make fetch</code> внутри каталога:</p>
+<pre><code>git clone https://web.stanford.edu/class/cs140e/assignments/0-blinky/skeleton.git assignment0
+cd assignment0
+make fetch
+</code></pre>
+<p>Не стесняйтесь самостоятельно исследовать содержимое репозитория.</p>
+<a class="header" href="./assignment_0.html#1-Подготовка-pi" id="1-Подготовка-pi"><h2>1: Подготовка Pi</h2></a>
+<a class="header" href="./assignment_0.html#2-Зажигаем-светодиод" id="2-Зажигаем-светодиод"><h2>2: Зажигаем светодиод</h2></a>
+<a class="header" href="./assignment_0.html#3-Няшный-Си" id="3-Няшный-Си"><h2>3: Няшный Си</h2></a>
+<a class="header" href="./assignment_0.html#4-Ржавчина" id="4-Ржавчина"><h2>4: Ржавчина</h2></a>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+                    <a rel="prev" href="./assignments.html" class="mobile-nav-chapters previous" title="Previous chapter">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="./rust_0.html" class="mobile-nav-chapters next" title="Next chapter">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+                <a href="./assignments.html" class="nav-chapters previous" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+            
+
+            
+                <a href="./rust_0.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+    <script type="text/javascript">
+        var socket = new WebSocket("ws://localhost:3001");
+        socket.onmessage = function (event) {
+            if (event.data === "reload") {
+                socket.close();
+                location.reload(true); // force reload from server (not from cache)
+            }
+        };
+
+        window.onbeforeunload = function() {
+            socket.close();
+        }
+    </script>
+
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS script -->
+        
+        <script type="text/javascript" src="svg.min.js"></script>
+        
+
+    </body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>О курсе - Основы операционных систем с нуля</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme -->
+        
+
+        
+
+        <!-- Fetch Clipboard.js from CDN but have a local fallback -->
+        <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.1/clipboard.min.js"></script>
+        <script>
+            if (typeof Clipboard == 'undefined') {
+                document.write(unescape("%3Cscript src='clipboard.min.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch JQuery from CDN but have a local fallback -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script>
+            if (typeof jQuery == 'undefined') {
+                document.write(unescape("%3Cscript src='jquery.js'%3E%3C/script%3E"));
+            }
+        </script>
+
+        <!-- Fetch store.js from local - TODO add CDN when 2.x.x is available on cdnjs -->
+        <script src="store.js"></script>
+
+    </head>
+    <body class="light">
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme = store.get('mdbook-theme');
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            $('body').removeClass().addClass(theme);
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var sidebar = store.get('mdbook-sidebar');
+            if (sidebar === "hidden") { $("html").addClass("sidebar-hidden") }
+            else if (sidebar === "visible") { $("html").addClass("sidebar-visible") }
+        </script>
+
+        <div id="sidebar" class="sidebar">
+            <ul class="chapter"><li><a href="./about.html" class="active"><strong>1.</strong> О курсе</a></li><li><a href="./assignments.html"><strong>2.</strong> Задания</a></li><li><ul class="section"><li><a href="./assignment_0.html"><strong>2.1.</strong> Задание 0: Blinky</a></li></ul></li><li><a href="./rust_0.html"><strong>3.</strong> Rust</a></li><li><ul class="section"><li><a href="./rust_1.html"><strong>3.1.</strong> Основы синтаксиса</a></li><li><a href="./rust_2.html"><strong>3.2.</strong> Пользовательские типы</a></li><li><a href="./rust_3.html"><strong>3.3.</strong> Pattern matching</a></li><li><a href="./rust_4.html"><strong>3.4.</strong> Управляющие конструкции</a></li><li><a href="./rust_5.html"><strong>3.5.</strong> Память и указатели</a></li><li><a href="./rust_6.html"><strong>3.6.</strong> Инструментарий</a></li><li><a href="./rust_7.html"><strong>3.7.</strong> Стандартная библиотека</a></li></ul></li><li><a href="./git.html"><strong>4.</strong> Введение в Git и Github</a></li></ul>
+        </div>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page" tabindex="-1">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div class="left-buttons">
+                        <i id="sidebar-toggle" class="fa fa-bars" title="Toggle sidebar"></i>
+                        <i id="theme-toggle" class="fa fa-paint-brush" title="Change theme"></i>
+                    </div>
+
+                    <h1 class="menu-title">Основы операционных систем с нуля</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html">
+                            <i id="print-button" class="fa fa-print" title="Print this book"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="content" class="content">
+                    <a class="header" href="./about.html#Операционные-системы-с-нуля" id="Операционные-системы-с-нуля"><h1>Операционные системы с нуля</h1></a>
+<a class="header" href="./about.html#Об-этом-курсе" id="Об-этом-курсе"><h2>Об этом курсе</h2></a>
+<a class="header" href="./about.html#Материалы-курса" id="Материалы-курса"><h2>Материалы курса</h2></a>
+<ul>
+<li><a href="https://web.stanford.edu/class/cs140e/">Оригинальный курс CS140e</a></li>
+<li><a href="https://web.stanford.edu/%7Eouster/cgi-bin/cs140-spring14/lectures.php">Лекции CS140 на английском</a></li>
+<li><a href="https://news.ycombinator.com/item?id=16134618">Обсуждение на Hacker News</a></li>
+<li><a href="https://www.reddit.com/r/cs140e/">Субреддит</a></li>
+<li><a href="https://www.rust-lang.org/">Сайт Rust</a></li>
+<li><a href="http://rurust.github.io/rust_book_ru/">Первое издание книги о Rust</a> (<a href="https://doc.rust-lang.org/stable/book/first-edition/">оригинал</a>)</li>
+<li><a href="https://doc.rust-lang.org/stable/book/second-edition/">Второе издание на английском</a></li>
+<li><a href="https://rurust.github.io/rust-by-example-ru/">Rust на примерах</a> (<a href="https://rustbyexample.com/">оригинал</a>)</li>
+<li>Книга Operating Systems: Principles and Practice (ISBN-10: <code>0985673516</code> ISBN-13: <code>978-0985673512</code>)</li>
+</ul>
+<p>https://gist.github.com/CMCDragonkai/10ab53654b2aa6ce55c11cfc5b2432a4
+https://github.com/nikomatsakis/rust-memory-model
+-&gt; from <a href="https://www.reddit.com/r/rust/comments/7p6n90/rust2018_back_to_the_roots/">reddit</a> <a href="https://habrahabr.ru/post/346644/">перевод</a></p>
+
+                </div>
+
+                <!-- Mobile navigation buttons -->
+                
+
+                
+                    <a rel="next" href="./assignments.html" class="mobile-nav-chapters next" title="Next chapter">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+
+            </div>
+
+            
+
+            
+                <a href="./assignments.html" class="nav-chapters next" title="You can navigate through the chapters using the arrow keys">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            
+
+        </div>
+
+
+        <!-- Local fallback for Font Awesome -->
+        <script>
+            if ($(".fa").css("font-family") !== "FontAwesome") {
+                $('<link rel="stylesheet" type="text/css" href="_FontAwesome/css/font-awesome.css">').prependTo('head');
+            }
+        </script>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        
+    <script type="text/javascript">
+        var socket = new WebSocket("ws://localhost:3001");
+        socket.onmessage = function (event) {
+            if (event.data === "reload") {
+                socket.close();
+                location.reload(true); // force reload from server (not from cache)
+            }
+        };
+
+        window.onbeforeunload = function() {
+            socket.close();
+        }
+    </script>
+
+
+        
+
+        
+
+        
+
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS script -->
+        
+        <script type="text/javascript" src="svg.min.js"></script>
+        
+
+    </body>
+</html>
